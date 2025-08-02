@@ -17,7 +17,9 @@ import { useDispatch } from "react-redux";
 import { useAppDispatch } from "../hooks";
 import { loginSuccess } from "../features/user/userSlice";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
@@ -38,7 +40,10 @@ const Login = () => {
     try {
       // Simulate API call
       axios
-        .post("http://localhost:4000/api/v1/auth/signin", { email, password })
+        .post(
+          "https://backend.webextremesinternational.com/api/v1/auth/signin",
+          { email, password }
+        )
         .then((response) => {
           if (response.data.status === 1) {
             // Dispatch login success action
@@ -46,6 +51,7 @@ const Login = () => {
             dispatch(loginSuccess(response.data));
             localStorage.setItem("user", JSON.stringify(user));
             localStorage.setItem("token", token);
+            navigate("/orders");
             alert("Login successful!");
           } else {
             alert("Login failed: " + response.data.message);
@@ -129,12 +135,12 @@ const Login = () => {
               </div>
             </div>
             <div className="flex items-center justify-between">
-              <Link
+              {/* <Link
                 to="/forgot-password"
                 className="text-sm text-primary hover:underline"
               >
                 Forgot password?
-              </Link>
+              </Link> */}
             </div>
             <Button type="submit" className="w-full">
               Sign In
@@ -143,14 +149,14 @@ const Login = () => {
 
           <div className="mt-6">
             <Separator className="my-4" />
-            <div className="text-center">
+            {/* <div className="text-center">
               <span className="text-sm text-muted-foreground">
                 Don't have an account?{" "}
                 <Link to="/signup" className="text-primary hover:underline">
                   Sign up
                 </Link>
               </span>
-            </div>
+            </div> */}
           </div>
         </CardContent>
       </Card>

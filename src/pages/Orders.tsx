@@ -58,11 +58,14 @@ const Orders = () => {
     }
 
     const response = axios
-      .get("http://localhost:4000/api/v1/order/getOrderDetails", {
-        headers: {
-          Authorization: `Bearer ${token || linkToken}`,
-        },
-      })
+      .get(
+        "https://backend.webextremesinternational.com/api/v1/order/getOrderDetails",
+        {
+          headers: {
+            Authorization: `Bearer ${token || linkToken}`,
+          },
+        }
+      )
       .then((res) => {
         if (res.data.status === 1) {
           console.log(res.data);

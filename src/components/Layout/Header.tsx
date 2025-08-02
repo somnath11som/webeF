@@ -1,27 +1,27 @@
-import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Badge } from '@/components/ui/badge';
-import { Menu, ShoppingCart, X } from 'lucide-react';
-import { useCart } from '@/contexts/CartContext';
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Badge } from "@/components/ui/badge";
+import { Menu, ShoppingCart, X } from "lucide-react";
+import { useCart } from "@/contexts/CartContext";
 
 const navigation = [
-  { name: 'Home', href: '/' },
-  { name: 'About Us', href: '/about' },
-  { name: 'Services', href: '/services' },
-  { name: 'Portfolio', href: '/portfolio' },
-  { name: 'Packages', href: '/packages' },
-  { name: 'Contact', href: '/contact' },
-  { name: 'Orders', href: '/orders' },
-  { name: 'Login', href: '/login' },
+  { name: "Home", href: "/" },
+  { name: "About Us", href: "/about" },
+  { name: "Services", href: "/services" },
+  { name: "Portfolio", href: "/portfolio" },
+  { name: "Packages", href: "/packages" },
+  { name: "Contact", href: "/contact" },
+  { name: "Orders", href: "/orders" },
+  { name: "Login", href: "/login" },
 ];
 
 export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
   const { state } = useCart();
-  
+
   const isActive = (path: string) => location.pathname === path;
 
   return (
@@ -30,10 +30,18 @@ export const Header = () => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-primary">
-              <span className="text-sm font-bold text-white">WE</span>
+            <img
+              src={"/logo.webp"} // Replace with your logo path
+              alt="Web Extreams International Logo"
+              className="h-12 w-22 object-contain"
+            />
+
+            {/* <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-primary">
+              <span className="text-sm font-bold text-white">WEI</span>
             </div>
-            <span className="text-xl font-bold text-primary">Web Extremes</span>
+            <span className="text-xl font-bold text-primary">
+              Web Extremes International
+            </span> */}
           </Link>
 
           {/* Desktop Navigation */}
@@ -43,7 +51,7 @@ export const Header = () => {
                 key={item.name}
                 to={item.href}
                 className={`text-sm font-medium transition-smooth hover:text-primary ${
-                  isActive(item.href) ? 'text-primary' : 'text-muted-foreground'
+                  isActive(item.href) ? "text-primary" : "text-muted-foreground"
                 }`}
               >
                 {item.name}
@@ -76,7 +84,11 @@ export const Header = () => {
                 <div className="flex flex-col space-y-4">
                   <div className="flex items-center justify-between">
                     <span className="text-lg font-semibold">Menu</span>
-                    <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)}>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      onClick={() => setIsOpen(false)}
+                    >
                       <X className="h-5 w-5" />
                     </Button>
                   </div>
@@ -87,7 +99,9 @@ export const Header = () => {
                         to={item.href}
                         onClick={() => setIsOpen(false)}
                         className={`text-sm font-medium transition-smooth hover:text-primary ${
-                          isActive(item.href) ? 'text-primary' : 'text-muted-foreground'
+                          isActive(item.href)
+                            ? "text-primary"
+                            : "text-muted-foreground"
                         }`}
                       >
                         {item.name}

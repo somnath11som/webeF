@@ -1,14 +1,14 @@
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { 
-  Facebook, 
-  Twitter, 
-  Linkedin, 
-  Instagram, 
-  Mail, 
-  Phone, 
-  MapPin 
-} from 'lucide-react';
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
+import {
+  Facebook,
+  Twitter,
+  Linkedin,
+  Instagram,
+  Mail,
+  Phone,
+  MapPin,
+} from "lucide-react";
 
 export const Footer = () => {
   return (
@@ -19,12 +19,15 @@ export const Footer = () => {
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/20">
-                <span className="text-sm font-bold">WE</span>
+                <span className="text-sm font-bold">WEI</span>
               </div>
-              <span className="text-xl font-bold">Web Extremes</span>
+              <span className="text-xl font-bold">
+                Web Extremes International
+              </span>
             </div>
             <p className="text-sm text-primary-foreground/80">
-              We Design, Build and Manage Professional Websites and Apps for Small, Medium and Large Businesses.
+              We Design, Build and Manage Professional Websites and Apps for
+              Small, Medium and Large Businesses.
             </p>
             <div className="flex space-x-2">
               <Button variant="ghost" size="icon" className="hover:bg-white/20">
@@ -46,16 +49,28 @@ export const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Quick Links</h3>
             <div className="space-y-2">
-              <Link to="/about" className="block text-sm text-primary-foreground/80 hover:text-primary-foreground transition-smooth">
+              <Link
+                to="/about"
+                className="block text-sm text-primary-foreground/80 hover:text-primary-foreground transition-smooth"
+              >
                 About Us
               </Link>
-              <Link to="/services" className="block text-sm text-primary-foreground/80 hover:text-primary-foreground transition-smooth">
+              <Link
+                to="/services"
+                className="block text-sm text-primary-foreground/80 hover:text-primary-foreground transition-smooth"
+              >
                 Services
               </Link>
-              <Link to="/portfolio" className="block text-sm text-primary-foreground/80 hover:text-primary-foreground transition-smooth">
+              <Link
+                to="/portfolio"
+                className="block text-sm text-primary-foreground/80 hover:text-primary-foreground transition-smooth"
+              >
                 Portfolio
               </Link>
-              <Link to="/packages" className="block text-sm text-primary-foreground/80 hover:text-primary-foreground transition-smooth">
+              <Link
+                to="/packages"
+                className="block text-sm text-primary-foreground/80 hover:text-primary-foreground transition-smooth"
+              >
                 Packages
               </Link>
             </div>
@@ -84,11 +99,15 @@ export const Footer = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4" />
-                <span className="text-sm">info@webextremesinternational.com</span>
+                <span className="text-sm">
+                  info@webextremesinternational.com
+                </span>
               </div>
               <div className="flex items-start space-x-2">
                 <MapPin className="h-4 w-4 mt-0.5" />
-                <span className="text-sm">4301 50th St NW Suite 300 #2091 Washington DC 20016</span>
+                <span className="text-sm">
+                  4301 50th St NW Suite 300 #2091 Washington DC 20016
+                </span>
               </div>
             </div>
           </div>

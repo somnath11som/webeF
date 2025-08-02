@@ -1,165 +1,174 @@
-import { useState } from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { Switch } from '@/components/ui/switch';
-import { Separator } from '@/components/ui/separator';
-import { useCart } from '@/contexts/CartContext';
-import { useToast } from '@/hooks/use-toast';
-import { 
-  CheckCircle, 
-  Star, 
-  Zap, 
-  Globe, 
-  Shield, 
-  Clock, 
+import { useState } from "react";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Switch } from "@/components/ui/switch";
+import { Separator } from "@/components/ui/separator";
+import { useCart } from "@/contexts/CartContext";
+import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
+import {
+  CheckCircle,
+  Star,
+  Zap,
+  Globe,
+  Shield,
+  Clock,
   Headphones,
   TrendingUp,
   Plus,
-  ArrowRight
-} from 'lucide-react';
+  ArrowRight,
+} from "lucide-react";
 
 const packages = [
   {
-    id: 'starter',
-    name: 'Starter',
-    description: 'Perfect for small businesses & startups',
+    id: "starter",
+    name: "Starter",
+    description: "Perfect for small businesses & startups",
     icon: Globe,
     monthly: 499,
     annual: 4990,
     popular: false,
     features: [
-      '5 pages website',
-      'Mobile-friendly design',
-      'Basic CMS integration',
-      '1 month support',
-      'Basic SEO setup',
-      'Contact form integration',
-      'Social media links',
-      'Google Analytics setup'
-    ]
+      "5 pages website",
+      "Mobile-friendly design",
+      "Basic CMS integration",
+      "1 month support",
+      "Basic SEO setup",
+      "Contact form integration",
+      "Social media links",
+      "Google Analytics setup",
+    ],
   },
   {
-    id: 'business',
-    name: 'Business',
-    description: 'Best for growing SMEs',
+    id: "business",
+    name: "Business",
+    description: "Best for growing SMEs",
     icon: TrendingUp,
     monthly: 1199,
     annual: 11990,
     popular: true,
     features: [
-      '7-10 pages website',
-      'Custom responsive design',
-      'Advanced CMS integration',
-      'Animated header/hero section',
-      'SEO optimization',
-      'E-commerce ready',
-      'Blog setup',
-      'Newsletter integration',
-      '3 months support',
-      'Free logo design'
-    ]
+      "7-10 pages website",
+      "Custom responsive design",
+      "Advanced CMS integration",
+      "Animated header/hero section",
+      "SEO optimization",
+      "E-commerce ready",
+      "Blog setup",
+      "Newsletter integration",
+      "3 months support",
+      "Free logo design",
+    ],
   },
   {
-    id: 'corporate',
-    name: 'Corporate',
-    description: 'For large companies & agencies',
+    id: "corporate",
+    name: "Corporate",
+    description: "For large companies & agencies",
     icon: Star,
     monthly: 1749,
     annual: 17490,
     popular: false,
     features: [
-      '11-17 pages website',
-      'Custom premium design',
-      'Advanced functionality',
-      'Multiple CMS options',
-      'Advanced SEO & analytics',
-      'E-commerce with payment gateway',
-      'Multi-language support',
-      'Advanced security features',
-      '6 months support',
-      'Custom logo & branding',
-      'Priority support'
-    ]
-  }
+      "11-17 pages website",
+      "Custom premium design",
+      "Advanced functionality",
+      "Multiple CMS options",
+      "Advanced SEO & analytics",
+      "E-commerce with payment gateway",
+      "Multi-language support",
+      "Advanced security features",
+      "6 months support",
+      "Custom logo & branding",
+      "Priority support",
+    ],
+  },
 ];
 
 const addOns = [
   {
-    id: 'ssl',
-    name: 'SSL Certificate',
-    description: 'Secure your website with SSL encryption',
+    id: "ssl",
+    name: "SSL Certificate",
+    description: "Secure your website with SSL encryption",
     icon: Shield,
     monthly: 20,
-    annual: 149
+    annual: 149,
   },
   {
-    id: 'hosting',
-    name: 'Professional Hosting',
-    description: 'Fast, reliable hosting with 99.9% uptime',
+    id: "hosting",
+    name: "Professional Hosting",
+    description: "Fast, reliable hosting with 99.9% uptime",
     icon: Zap,
     monthly: 50,
-    annual: 399
+    annual: 399,
   },
   {
-    id: 'maintenance',
-    name: 'Website Maintenance',
-    description: 'Keep your website updated and secure',
+    id: "maintenance",
+    name: "Website Maintenance",
+    description: "Keep your website updated and secure",
     icon: Clock,
     monthly: 60,
-    annual: 600
+    annual: 600,
   },
   {
-    id: 'marketing',
-    name: 'Digital Marketing',
-    description: 'SEO, PPC, and social media marketing',
+    id: "marketing",
+    name: "Digital Marketing",
+    description: "SEO, PPC, and social media marketing",
     icon: TrendingUp,
     monthly: 299,
-    annual: 2499
-  }
+    annual: 2499,
+  },
 ];
 
 export default function Packages() {
   const [isAnnual, setIsAnnual] = useState(false);
   const { addItem } = useCart();
   const { toast } = useToast();
-
-  const handleAddPackage = (pkg: typeof packages[0]) => {
+  const navigate = useNavigate();
+  const handleAddPackage = (pkg: (typeof packages)[0]) => {
     const price = isAnnual ? pkg.annual : pkg.monthly;
-    const billing = isAnnual ? 'annually' as const : 'monthly' as const;
-    
+    const billing = isAnnual ? ("annually" as const) : ("monthly" as const);
+
     const item = {
       id: `${pkg.id}-${billing}`,
       name: `${pkg.name} Package (${billing})`,
       price,
-      type: 'package' as const,
+      type: "package" as const,
       billing,
-      description: pkg.description
+      description: pkg.description,
     };
-    
+
     addItem(item);
+    navigate("/cart");
     toast({
-      title: 'Added to Cart',
+      title: "Added to Cart",
       description: `${item.name} has been added to your cart.`,
     });
   };
 
-  const handleAddAddon = (addon: typeof addOns[0]) => {
+  const handleAddAddon = (addon: (typeof addOns)[0]) => {
     const price = isAnnual ? addon.annual : addon.monthly;
-    const billing = isAnnual ? 'annually' as const : 'monthly' as const;
-    
+    const billing = isAnnual ? ("annually" as const) : ("monthly" as const);
+
     const item = {
       id: `${addon.id}-${billing}`,
       name: `${addon.name} (${billing})`,
       price,
-      type: 'addon' as const,
+      type: "addon" as const,
       billing,
-      description: addon.description
+      description: addon.description,
     };
-    
+
     addItem(item);
+    navigate("/cart");
     toast({
-      title: 'Added to Cart',
+      title: "Added to Cart",
       description: `${item.name} has been added to your cart.`,
     });
   };
@@ -184,13 +193,17 @@ export default function Packages() {
             <span className="block text-primary-glow">Every Business</span>
           </h1>
           <p className="text-xl text-primary-foreground/90 max-w-3xl mx-auto mb-8">
-            Choose the perfect package for your business needs. All packages include our 
-            24-hour delivery guarantee and unlimited support.
+            Choose the perfect package for your business needs. All packages
+            include our 24-hour delivery guarantee and unlimited support.
           </p>
-          
+
           {/* Billing Toggle */}
-          <div className="flex items-center justify-center space-x-4 bg-white/10 rounded-lg p-2 max-w-xs mx-auto">
-            <span className={`text-sm ${!isAnnual ? 'text-white font-medium' : 'text-white/70'}`}>
+          {/* <div className="flex items-center justify-center space-x-4 bg-white/10 rounded-lg p-2 max-w-xs mx-auto">
+            <span
+              className={`text-sm ${
+                !isAnnual ? "text-white font-medium" : "text-white/70"
+              }`}
+            >
               Monthly
             </span>
             <Switch
@@ -198,7 +211,11 @@ export default function Packages() {
               onCheckedChange={setIsAnnual}
               className="data-[state=checked]:bg-white/30"
             />
-            <span className={`text-sm ${isAnnual ? 'text-white font-medium' : 'text-white/70'}`}>
+            <span
+              className={`text-sm ${
+                isAnnual ? "text-white font-medium" : "text-white/70"
+              }`}
+            >
               Annual
             </span>
             {isAnnual && (
@@ -206,7 +223,7 @@ export default function Packages() {
                 Save up to 20%
               </Badge>
             )}
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -216,13 +233,15 @@ export default function Packages() {
           <div className="grid md:grid-cols-3 gap-8 mb-16">
             {packages.map((pkg) => {
               const price = isAnnual ? pkg.annual : pkg.monthly;
-              const savings = isAnnual ? calculateSavings(pkg.monthly, pkg.annual) : null;
-              
+              const savings = isAnnual
+                ? calculateSavings(pkg.monthly, pkg.annual)
+                : null;
+
               return (
-                <Card 
-                  key={pkg.id} 
+                <Card
+                  key={pkg.id}
                   className={`relative hover-scale shadow-elegant ${
-                    pkg.popular ? 'ring-2 ring-primary shadow-glow' : ''
+                    pkg.popular ? "ring-2 ring-primary shadow-glow" : ""
                   }`}
                 >
                   {pkg.popular && (
@@ -231,35 +250,49 @@ export default function Packages() {
                       Most Popular
                     </Badge>
                   )}
-                  
+
                   <CardHeader className="text-center pb-2">
                     <div className="flex justify-center mb-4">
-                      <div className={`p-3 rounded-full ${pkg.popular ? 'bg-gradient-primary' : 'bg-muted'}`}>
-                        <pkg.icon className={`h-8 w-8 ${pkg.popular ? 'text-white' : 'text-primary'}`} />
+                      <div
+                        className={`p-3 rounded-full ${
+                          pkg.popular ? "bg-gradient-primary" : "bg-muted"
+                        }`}
+                      >
+                        <pkg.icon
+                          className={`h-8 w-8 ${
+                            pkg.popular ? "text-white" : "text-primary"
+                          }`}
+                        />
                       </div>
                     </div>
                     <CardTitle className="text-2xl">{pkg.name}</CardTitle>
-                    <CardDescription className="text-base">{pkg.description}</CardDescription>
+                    <CardDescription className="text-base">
+                      {pkg.description}
+                    </CardDescription>
                   </CardHeader>
-                  
+
                   <CardContent className="space-y-6">
                     <div className="text-center">
                       <div className="text-4xl font-bold text-primary">
                         ${price.toLocaleString()}
                       </div>
                       <div className="text-muted-foreground">
-                        {isAnnual ? 'per year' : 'per month'}
+                        {isAnnual ? "per year" : "per month"}
                       </div>
                       {isAnnual && savings && (
                         <div className="text-green-600 text-sm font-medium mt-1">
-                          Save ${savings.savings.toLocaleString()} ({savings.percentage}%)
+                          Save ${savings.savings.toLocaleString()} (
+                          {savings.percentage}%)
                         </div>
                       )}
                     </div>
 
                     <div className="space-y-3">
                       {pkg.features.map((feature, index) => (
-                        <div key={index} className="flex items-center space-x-3">
+                        <div
+                          key={index}
+                          className="flex items-center space-x-3"
+                        >
                           <CheckCircle className="h-5 w-5 text-primary flex-shrink-0" />
                           <span className="text-sm">{feature}</span>
                         </div>
@@ -291,15 +324,18 @@ export default function Packages() {
               Enhance Your Package
             </h2>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              Boost your website's performance and security with our premium add-ons.
+              Boost your website's performance and security with our premium
+              add-ons.
             </p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
             {addOns.map((addon) => {
               const price = isAnnual ? addon.annual : addon.monthly;
-              const savings = isAnnual ? calculateSavings(addon.monthly, addon.annual) : null;
-              
+              const savings = isAnnual
+                ? calculateSavings(addon.monthly, addon.annual)
+                : null;
+
               return (
                 <Card key={addon.id} className="hover-scale shadow-elegant">
                   <CardHeader className="text-center pb-2">
@@ -309,16 +345,18 @@ export default function Packages() {
                       </div>
                     </div>
                     <CardTitle className="text-lg">{addon.name}</CardTitle>
-                    <CardDescription className="text-sm">{addon.description}</CardDescription>
+                    <CardDescription className="text-sm">
+                      {addon.description}
+                    </CardDescription>
                   </CardHeader>
-                  
+
                   <CardContent className="space-y-4">
                     <div className="text-center">
                       <div className="text-2xl font-bold text-primary">
                         ${price.toLocaleString()}
                       </div>
                       <div className="text-muted-foreground text-sm">
-                        {isAnnual ? 'per year' : 'per month'}
+                        {isAnnual ? "per year" : "per month"}
                       </div>
                       {isAnnual && savings && (
                         <div className="text-green-600 text-xs font-medium mt-1">
@@ -360,7 +398,10 @@ export default function Packages() {
                   <tr className="border-b">
                     <th className="text-left p-4 font-semibold">Features</th>
                     {packages.map((pkg) => (
-                      <th key={pkg.id} className="text-center p-4 font-semibold">
+                      <th
+                        key={pkg.id}
+                        className="text-center p-4 font-semibold"
+                      >
                         {pkg.name}
                       </th>
                     ))}
@@ -368,13 +409,13 @@ export default function Packages() {
                 </thead>
                 <tbody>
                   {[
-                    'Mobile-friendly design',
-                    'CMS integration',
-                    'SEO optimization',
-                    'E-commerce ready',
-                    'Logo design',
-                    'Multi-language support',
-                    'Priority support'
+                    "Mobile-friendly design",
+                    "CMS integration",
+                    "SEO optimization",
+                    "E-commerce ready",
+                    "Logo design",
+                    "Multi-language support",
+                    "Priority support",
                   ].map((feature, index) => (
                     <tr key={index} className="border-b hover:bg-muted/30">
                       <td className="p-4">{feature}</td>
@@ -403,13 +444,13 @@ export default function Packages() {
             Ready to Get Started?
           </h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Choose your package and launch your professional website in 24 hours 
+            Choose your package and launch your professional website in 24 hours
             with our expert team.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button 
-              variant="hero" 
-              size="xl" 
+            <Button
+              variant="hero"
+              size="xl"
               className="bg-white text-primary hover:bg-white/90"
               asChild
             >
@@ -418,15 +459,13 @@ export default function Packages() {
                 <ArrowRight className="h-5 w-5" />
               </a>
             </Button>
-            <Button 
-              variant="outline" 
-              size="xl" 
-              className="border-white/30 text-white hover:bg-white/10"
+            <Button
+              variant="outline"
+              size="xl"
+              className="border-white/30 text-primary hover:bg-white/10"
               asChild
             >
-              <a href="/contact">
-                Get Custom Quote
-              </a>
+              <a href="/contact">Get Custom Quote</a>
             </Button>
           </div>
         </div>
